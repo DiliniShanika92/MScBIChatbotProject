@@ -1,0 +1,158 @@
+@Ecore(nsURI="com.xatkit.intent")
+@GenModel(modelDirectory="/intent/src/main/java-gen", importerID="org.eclipse.emf.importer.ecore", complianceLevel="8.0")
+package com.xatkit.intent
+
+import java.util.Map
+
+class Library {
+	String name
+	contains CustomEntityDefinition[] customEntities
+	contains EventDefinition[] eventDefinitions
+}
+
+class EventDefinition {
+    String name
+    contains ContextParameter[] parameters
+}
+
+class IntentDefinition extends EventDefinition {
+    String[] trainingSentences
+}
+
+class ContextParameter {
+    String name
+    String[] textFragments
+    contains EntityDefinitionReference entity
+}
+
+class EventInstance {
+    // store the triggeredBy information as a String, we can't import the Platform metamodel from here
+    String triggeredBy 
+    refers EventDefinition definition
+    contains ContextParameterValue[] values
+    PlatformDataMap platformData
+}
+
+class RecognizedIntent extends EventInstance {
+    String matchedInput
+    float recognitionConfidence
+    NlpDataMap nlpData
+}
+
+class ContextParameterValue {
+    refers ContextParameter contextParameter
+    Object value
+}
+
+abstract class EntityDefinitionReference {
+    op EntityDefinition getReferredEntity()
+}
+
+class BaseEntityDefinitionReference extends EntityDefinitionReference {
+    contains BaseEntityDefinition baseEntity
+}
+
+class CustomEntityDefinitionReference extends EntityDefinitionReference {
+    refers CustomEntityDefinition customEntity
+}
+
+abstract class EntityDefinition {
+    op String getName()
+
+}
+
+class BaseEntityDefinition extends EntityDefinition {
+    EntityType entityType
+}
+
+
+abstract class CustomEntityDefinition extends EntityDefinition {
+    String name
+}
+
+class MappingEntityDefinition extends CustomEntityDefinition {
+    contains MappingEntityDefinitionEntry[] entries
+}
+
+class MappingEntityDefinitionEntry {
+    String referenceValue
+    String[] synonyms
+}
+
+class CompositeEntityDefinition extends CustomEntityDefinition {
+    contains CompositeEntityDefinitionEntry[] entries
+}
+
+class CompositeEntityDefinitionEntry {
+    contains TextFragment[] fragments
+}
+
+abstract class TextFragment {
+
+}
+
+class EntityTextFragment extends TextFragment {
+    contains EntityDefinitionReference entityReference
+}
+
+class LiteralTextFragment extends TextFragment {
+    String value
+}
+
+type NlpDataMap wraps Map<String, Object>
+
+type PlatformDataMap wraps Map<String, Object>
+
+enum EntityType {
+    ANY as "any" = 0
+    DATE_TIME as "date-time" = 1
+    DATE as "date" = 2
+    DATE_PERIOD as "date-period" = 3
+    TIME as "time" = 4
+    TIME_PERIOD as "time-period" = 5
+    NUMBER as "number" = 6
+    CARDINAL as "cardinal" = 7
+    ORDINAL as "ordinal" = 8
+    INTEGER as "integer" = 9
+    NUMBER_SEQUENCE as "number-sequence" = 10
+    FLIGHT_NUMBER as "flight-number" = 11
+    UNIT_AREA as "unit-area" = 12
+    UNIT_CURRENCY as "unit-currency" = 13
+    UNIT_LENGTH as "unit-length" = 14
+    UNIT_SPEED as "unit-speed" = 15
+    UNIT_VOLUME as "unit-volume" = 16
+    UNIT_WEIGHT as "unit-weight" = 17
+    UNIT_INFORMATION as "unit-information" = 18
+    PERCENTAGE as "percentage" = 19
+    TEMPERATURE as "temperature" = 20
+    DURATION as "duration" = 21
+    AGE as "age" = 22
+    ADDRESS as "address" = 23
+    STREET_ADDRESS as "street-address" = 24
+    ZIP_CODE as "zip-code" = 25
+    CAPITAL as "capital" = 26
+    COUNTRY as "country" = 27
+    COUNTRY_CODE as "country-code" = 28
+    CITY as "city" = 29
+    STATE as "state" = 30
+    CITY_US as "city-us" = 31
+    STATE_US as "state-us" = 32
+    COUNTY_US as "county-us" = 33
+    CITY_GB as "city-gb" = 34
+    STATE_GB as "state-gb" = 35
+    COUNTY_GB as "county-gb" = 36
+    PLACE_ATTRACTION_US as "place-attraction-us" = 37
+    PLACE_ATTRACTION_GB as "place-attraction-gb" = 38
+    PLACE_ATTRACTION as "place-attraction" = 39
+    AIRPORT as "airport" = 40
+    LOCATION as "location" = 41
+    EMAIL as "email" = 42
+    PHONE_NUMBER as "phone-number" = 43
+    GIVEN_NAME as "given-name" = 44
+    LAST_NAME as "last-name" = 45
+    MUSIC_ARTIST as "music-artist" = 46
+    MUSIC_GENRE as "music-genre" = 47
+    COLOR as "color" = 48
+    LANGUAGE as "language" = 49
+    URL as "url" = 50
+}

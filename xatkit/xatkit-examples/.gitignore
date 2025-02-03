@@ -1,0 +1,24 @@
+# DialogFlow Account Key
+**/*key.json
+
+# Properties file with credentials
+**/*-private*.properties
+
+# Runtime Data
+**/data/
+**/public/
+
+# Xatkit logs
+**/logs
+
+# Bin scripts
+**/bin
+**/target
+
+
+# Eclipse's .settings
+**/.settings
+
+# IntelliJ settings
+**/.idea
+*.iml

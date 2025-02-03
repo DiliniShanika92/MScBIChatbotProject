@@ -1,0 +1,60 @@
+@Ecore(nsURI="com.xatkit.execution")
+@GenModel(modelDirectory="/execution/src/main/java-gen", importerID="org.eclipse.emf.importer.ecore", complianceLevel="8.0", operationReflection="false")
+package com.xatkit.execution
+
+import com.xatkit.intent.EventDefinition
+import com.xatkit.intent.EventInstance
+
+import java.util.Map
+import java.util.function.Consumer
+import java.util.function.Predicate
+
+
+class ExecutionModel {
+    //refers EventProviderDefinition[] eventProviderDefinitions
+	refers EventDefinition[] usedEvents
+	Platform[] usedPlatforms
+	Provider[] usedProviders
+	contains State[] states
+	refers State initState
+	refers State defaultFallbackState
+}
+
+class State {
+	String name
+	Consumer body
+	Consumer fallback
+	contains Transition[] transitions
+}
+
+abstract class Transition {
+	refers State state
+}
+
+class GuardedTransition extends Transition {
+	Predicate condition
+}
+
+class AutoTransition extends Transition {
+	
+}
+
+class StateContext {
+	ConfigurationMap configuration
+	//NlpContextMap nlpContext
+	SessionMap session
+	refers EventInstance eventInstance
+	String contextId
+	String origin
+	refers State state
+}
+
+type ConfigurationMap wraps Map<Object, Object>
+type NlpContextMap wraps Map<String, Map<String, Object>>
+type SessionMap wraps Map<Object, Object>
+
+type Consumer wraps Consumer<StateContext>
+type Predicate wraps Predicate<StateContext>
+
+type Platform wraps Object
+type Provider wraps Object

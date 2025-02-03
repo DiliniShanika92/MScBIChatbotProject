@@ -1,0 +1,15 @@
+os: linux
+sudo: false
+dist: trusty
+language: java
+jdk: oraclejdk8
+cache:
+  directories:
+  - "~/.m2/repository"
+before_install:
+- bash .util/build_xatkit.sh
+script:
+- mvn install
+notifications:
+  slack:
+    secure: qRTiLD93EMFn1wXv5qIRJcW53tWFC/ahY1TQFF2QUYNS85wlh/V6LFrp5MYryZulobetTdL4fI7bT/nMmapQf8w6mM6JqPfz7CAEe2jf3BNaMSNv6G+gA6n8x9H0BJ3bytUAfMDitaJHlfqCcQ9m07cI+CkU17u5JF9DYIGqhz8W0Ec5aVouLfyUEDZu4dGRmYXm0QYhILeNHeRlr6N11xWyl07fj+KLTHh7UiVQsjb4RY/dU0GCFwgB+/eTgO9AI/6sGOOB/TGwNDmt7waxVwVTufBgNbwdnOEGT/S0Hgm3owkkjgfORQbdXimbDkpDTSrZs095mGRSKkVNi3iEfZCR2tmtZNPhx53HIfzoKA/CmLe+VUSlcUoAyL/2CW9U/V78pilYwhRGaoV5GnV7XSu2tarGKTzpaziqQhOcBy5AnLm0oAbRDN07IA/d/f9Dpe7px/SQ9Ey0Prn65peaBpn2kH8By0h9nr38ztGwGrg0QSTDkNttjvyc+QpC36ZzW6bWYtSgu8lIBNsEibjNqGomDh+6D6Ziv3swKYGQRHrjRo/u+++WWLpaBoRf7FKvRDmmxaCqMqGwEHDrI/2aOYCZrWDLP03PHjooKhn6scvs3vch8dm77F9ohuwNwmPTcFjr8xRRdftKntlUA6YQSLN4sBgZiLaiSiAYu2rqvaw=

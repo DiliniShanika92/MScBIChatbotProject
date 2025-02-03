@@ -1,0 +1,17 @@
+# Validate before pushing any modification
+# cat codecov.yml | curl --data-binary @- https://codecov.io/validate
+coverage:
+  precision: 2
+  round: down
+  range: 30...100
+
+  status:
+    changes: false
+    patch: true
+    project: true
+
+  ignore:
+    # Ignore Exceptions instances
+    - "**/*Exception.java"
+
+comment: false

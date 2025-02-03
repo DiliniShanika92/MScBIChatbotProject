@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="#xatkit.server/admin/css/xatkit.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Xatkit test environment</h1>
+    <p>Your test username: #xatkit.username</p>
+    <div id="xatkit-chat"></div>
+    <script src="#xatkit.server/admin/js/xatkit.min.js"></script>
+    <script>xatkit.renderXatkitWidget({
+    		'server' :  '#xatkit.react_server',
+    		'username' :'#xatkit.username',
+            'storage' : {
+    		    'autoClear' : true
+            }
+    	});
+    </script>
+</body>
+</html>

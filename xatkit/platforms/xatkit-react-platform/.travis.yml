@@ -1,0 +1,16 @@
+os: linux
+sudo: false
+dist: trusty
+language: java
+jdk: oraclejdk8
+cache:
+  directories:
+  - "~/.m2/repository"
+before_install:
+- bash .util/build_xatkit.sh
+- bash .util/build_chat-platform.sh
+script:
+- mvn install
+notifications:
+  slack:
+    secure: GMBmNU3p8+H0Jg/xYL+WIYBnJINchYncuTQl4zDc1OHtQMlpj8GQA6ietsp9x3A/n4oTMUKltCs1N5pykjdl1N3nJXET+uwsYb1ZAEii0Jv+OB+fVTjVU+CpToKQwIELjDihork6vBMOXbdaEh4eQSQ3jPjQE+wLPjI11tz9qe+FkkCY7VgKiQFcjhFvIRIa8RufDrXTqx5I36bPHP9nfJVpyDfkGGro1KvTGsUIeZemFe8c4tPJ9UmXQh0mR6Ey/JmY+/PpKDlKWcpZsxvsRlwRKoQXRLBwavhivuci/SN4dJJShD1SNpsyISPwyXRncCJvwbF4JHk1Mc97mDNHEW7QkVCVHICkhSFxMNN8zrYK1zB07UQPqs/ZB4FmMfzvEEOeAyTtAj6VHjEgvE2HzdvTAsSakgCEbp1LFqzyligqsuaUOZybMGg+qmKqtpm22nqBbNRyPcEV7XoimZsgaVoYllu/yxNlFEm8KY0/6ChRi17hf3oxKqpMnj4eqefMpMVvEbZKrGuBJLSs/hnLYJRQUXEYQV0aVn2rByyQH+80bY2EA5tTvyXIKwQF3QxCjljRs30bUtWzb/BG30WQ+jxiSWIdBosGClxMU+BcTast17bV/oZ10j1y8L2vpaalfVydz6AEITvIj17IIyt7UPkgrkvrV82pMlBPDmNw+30=
